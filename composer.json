@@ -3,7 +3,8 @@
     "description": "this is the bigening of my poject in git hub enjoy it !",
     "type": "project",
     "require": {
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "hisorange/browser-detect": "^4.5"
     },
     "autoload": {
         "psr-4": {

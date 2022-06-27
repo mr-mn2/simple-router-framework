@@ -14,19 +14,47 @@ class Router {
         $this ->request = new request();
         $this ->routes = Route::routes();
         $this ->current_routes = $this ->findRoute($this->request) ?? null;
+        $this->run_middleware();
     }
-
+    private function run_middleware(){
+        $middleware =$this->current_routes['middlewares'] ??false;
+        if (!$middleware) {
+            return false;
+        }
+        foreach ($middleware as $middlewareClass) {
+            $middlewareobj = new $middlewareClass;
+            $middlewareobj->handle();
+        }
+        var_dump($this ->current_routes['middlewares']);
+    }
     public function findRoute(request $request)
     {
         foreach ($this->routes as $route){
-            if(in_array($request->Method(),$route['methods']) && $request->uri() == $route['uri']){
+            if(!in_array($request->Method(),$route['methods'])){
+                return false;
+            }
+            if ($this ->regax_match($route)) {
                 return $route;
             }
         }
         return null;
-      
+    }
+    public function regax_match($route){
+        global $request;
+        $pattern = "/^" . str_replace(['/','{','}'],['\/','(?<','>[-%\w]+)'],$route['uri'])."$/";
+        $result = preg_match($pattern,$this->request->uri(),$matches);
+        if (!$result) {
+            return false;
+        }
+        foreach($matches as $key => $value){
+            if (!is_int($key)) {
+                $request -> add_route_parameter($key,$value);
+            }
+        }
+        return true;
 
     }
+    
     public function invalid_request(request $request)
     {
         foreach ($this->routes as $route){
@@ -54,7 +82,7 @@ class Router {
      */
     public function run()
     {
-        #error 405 method not found
+        #error 405 not found
         if (!$this ->invalid_request($this->request)) {
             $this->dispatch405();
         }
@@ -89,7 +117,7 @@ class Router {
                 throw new Exception("method $methodName not Exists");
             
             $controller->{$methodName}();
-        }
+        }       
 
         
         

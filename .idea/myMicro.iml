@@ -12,6 +12,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/graham-campbell/result-type" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpoption/phpoption" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ua-parser/uap-php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/hisorange/browser-detect" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mustangostang/spyc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/matomo/device-detector" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mobiledetect/mobiledetectlib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/pipeline" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jaybizzle/crawler-detect" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,12 +1,14 @@
 <?php
 
 use App\Core\Routing\Route;
-
-Route::get('null');
-Route::get('',function(){
-    include BASE_PATH;
+use App\Middleware\block\blockFirefox;
+  
+Route::get('product/{slug}','postController@single');
+Route::get('product/{slug}/comment/{comment_id}','postController@single');
+Route::get('product/{slug}/comment/{comment_id}/reply/{reply_id}', 'postController@single');
+Route::get('',function(){ 
 });
-Route::get('movies','homeController@movies');
+Route::get('movies','homeController@movies',[blockFirefox::class]);
 
 Route::add(['get',"put","post"],'a',function()
 {
